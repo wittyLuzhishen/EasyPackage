@@ -1,0 +1,149 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.luzhshen.easypackage</groupId>
+	<artifactId>EasyPackage-facade</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>易打包-门户</name>
+	<description>提供和用户直接交互的界面</description>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<!-- scope>test</scope-->
+		</dependency>
+		<dependency>
+			<groupId>com.54chen</groupId>
+			<artifactId>paoding-rose-scanning</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.54chen</groupId>
+			<artifactId>paoding-rose</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.54chen</groupId>
+			<artifactId>paoding-rose-portal</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.54chen</groupId>
+			<artifactId>paoding-rose-jade</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<!-- JSTL -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<!-- json -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20170516</version>
+		</dependency>
+		<!-- 好用的StringUtils就在这里 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.6</version>
+		</dependency>
+		<!-- 打日志的利器 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+	</dependencies>
+
+	<properties>
+		<appPackageName>com.luzhishen.easypackage.facade</appPackageName>
+		<rootPath>easypackagefacade</rootPath>
+		<log4j_level_biz>debug</log4j_level_biz>
+		<log4j_level_rose>debug</log4j_level_rose>
+		<log4j_level_default>debug</log4j_level_default>
+	</properties>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<activation><!-- -Drelease=true就能启动properties里的变量，从而覆盖默认变量 -->
+				<property>
+					<name>release</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<properties>
+				<log4j_level_biz>info</log4j_level_biz>
+			</properties>
+		</profile>
+	</profiles>
+
+	<build>
+		<finalName>${rootPath}</finalName>
+		<!-- 替换资源文件中的占位符 -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<!-- 得显示开启 -->
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<targetPath>WEB-INF</targetPath>
+							<filtering>true</filtering>
+							<directory>src/main/resources</directory>
+							<includes>
+								<include>**/*.xml</include>
+							</includes>
+							<targetPath>WEB-INF</targetPath>
+						</resource>
+					</webResources>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<fork>true</fork>
+					<verbose>true</verbose>
+					<encoding>UTF-8</encoding>
+					<compilerArguments>
+						<sourcepath>
+							${project.basedir}/src/main/java
+						</sourcepath>
+					</compilerArguments>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<!-- 忽略测试 -->
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

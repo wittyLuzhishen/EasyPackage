@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-5p %d{yyyy-MM-dd HH:mm:ss.SSS}] [%m]%n" />
+		</layout>
+	</appender>
+
+	<appender name="biz" class="org.apache.log4j.DailyRollingFileAppender">
+		<!-- 默认在Tomcat的bin目录下 -->
+		<param name="File" value="../logs/${artifactId}/${artifactId}.log" />
+		<param name="DatePattern" value=".yyyyMMdd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-5p %d{yyyy-MM-dd HH:mm:ss.SSS}] %l [%m]%n" />
+		</layout>
+	</appender>
+
+	<appender name="rose" class="org.apache.log4j.DailyRollingFileAppender">
+		<!-- 默认在Tomcat的bin目录下 -->
+		<param name="File" value="../logs/${artifactId}/${artifactId}.rose.log" />
+		<param name="DatePattern" value=".yyyyMMdd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-5p %d{yyyy-MM-dd HH:mm:ss.SSS}] %l [%m]%n" />
+		</layout>
+	</appender>
+
+	<appender name="default" class="org.apache.log4j.DailyRollingFileAppender">
+		<!-- 默认在Tomcat的bin目录下 -->
+		<param name="File" value="../logs/${artifactId}/${artifactId}.default.log" />
+		<param name="DatePattern" value=".yyyyMMdd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-5p %d{yyyy-MM-dd HH:mm:ss.SSS}] %l [%m]%n" />
+		</layout>
+	</appender>
+
+	<logger name="${appPackageName}" additivity="false">
+		<level value="${log4j_level_biz}" />
+		<appender-ref ref="biz" />
+	</logger>
+
+	<logger name="net.paoding.rose" additivity="false">
+		<level value="${log4j_level_rose}" />
+		<appender-ref ref="rose" />
+	</logger>
+
+	<root>
+		<level value="${log4j_level_default}" />
+		<appender-ref ref="default" />
+	</root>
+</log4j:configuration>
