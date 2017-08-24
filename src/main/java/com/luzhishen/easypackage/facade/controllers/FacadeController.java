@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.luzhishen.easypackage.facade.constant.Constants;
 import com.luzhishen.easypackage.facade.service.TaskService;
-import com.luzhishen.easypackage.facade.util.Config;
+import com.luzhishen.easypackage.facade.util.PathUtil;
 import com.luzhishen.easypackage.facade.util.UserStateManager;
 
 @Path(Constants.Path.ROOT)
@@ -28,16 +28,17 @@ public class FacadeController {
     @LoginCheckRequired
     @Get({ Constants.Path.ROOT, Constants.Path.INDEX })
     public String index(Invocation inv) {
-        logger.debug("visit {}", inv.getRequestPath());
-        logger.debug("rootPath: {}", Config.getInstance().getRootPath());
+        inv.addModel("appList", taskService.findAppList());
+        inv.addModel("rootPath", PathUtil.getPath(Constants.Path.ROOT));
         return "/jsp/index.jsp";
     }
 
     @Get(Constants.Path.LOGIN)
     public String login(Invocation inv) {
         if (UserStateManager.isLogined(inv.getRequest())) {
-            return "/jsp/index.jsp";
+            return PathUtil.getRedirectPath(Constants.Path.INDEX);
         } else {
+            inv.addModel("actionPath", PathUtil.getPath(Constants.Path.LOGIN));
             return "/jsp/login.jsp";
         }
     }
@@ -47,9 +48,17 @@ public class FacadeController {
             @Param(USER_NAME) String userName,
             @Param(PASSWORD) String password) {
         if (taskService.login(userName, password)) {
-            return "jsp/index.jsp";
+            UserStateManager.setLogined(inv.getRequest(), userName);
+            return PathUtil.getRedirectPath(Constants.Path.INDEX);
         }
         return "@用户名或密码错误";
+    }
+
+    @LoginCheckRequired
+    @Get(Constants.Path.PACKAGE + "/{appName:\\w+}")
+    public String packageIndex(Invocation inv, @Param("appName") String appName) {
+        inv.addModel("appName", appName);
+        return "/jsp/package.jsp";
     }
 
 }

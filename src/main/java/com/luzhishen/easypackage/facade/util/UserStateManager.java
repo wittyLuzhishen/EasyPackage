@@ -15,4 +15,8 @@ public class UserStateManager {
         HttpSession session = request.getSession();
         return session.getAttribute(LOGIN_SESSION_USER) != null;
     }
+
+    public static void setLogined(HttpServletRequest request, String userName) {
+        request.getSession().setAttribute(LOGIN_SESSION_USER, userName);
+    }
 }

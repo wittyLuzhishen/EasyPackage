@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>易打包</title>
+<title>打包</title>
 
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -24,16 +24,7 @@
     <![endif]-->
 </head>
 <body>
-	<div class="container">
-		<h2>欢迎使用易打包</h2>
-		<div class="col=md-12">
-			<ul>
-				<c:forEach items="${appList}" var="app">
-					<li><a href="${rootPath}/package/${app.name}">${app.desc }</a></li>
-				</c:forEach>
-			</ul>
-		</div>
-	</div>
+	<h1>你好，世界！${appName}</h1>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="js/jquery-1.12.4.min.js"></script>

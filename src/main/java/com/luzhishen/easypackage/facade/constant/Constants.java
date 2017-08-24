@@ -11,5 +11,6 @@ public interface Constants {
         String ROOT = "/";
         String INDEX = "/index";
         String LOGIN = "/login";
+        String PACKAGE = "/package";
     }
 }

@@ -11,4 +11,37 @@
 	<context:annotation-config />
 	<context:component-scan base-package="${appPackageName}" />
 
+
+	<!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
+	<bean id="startQuertz" lazy-init="false" autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="pendingTaskGroupScanJob" />
+			</list>
+		</property>
+	</bean>
+	<!-- 查询待打包任务 -->
+	<bean id="pendingTaskGroupScanJob" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="pendingTaskGroupScanJobDetail" />
+		</property>
+		<!-- cron表达式 -->
+		<property name="cronExpression">
+			<value>0/10 * * * * ?</value>
+		</property>
+	</bean>
+	<bean id="pendingTaskGroupScanJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject">
+			<ref bean="taskLooper" />
+		</property>
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod">
+			<value>loop</value>
+		</property>
+	</bean>
+
+
 </beans>

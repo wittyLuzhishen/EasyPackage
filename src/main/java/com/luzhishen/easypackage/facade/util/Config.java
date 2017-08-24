@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 public class Config {
     private static final Logger logger = LoggerFactory.getLogger(Config.class);
     private static final String propertiesFileName = "/config.properties";
-    private String rootPath = "/";
+    private String basePath = "/";
     private boolean needPrefixRootPath = false;
 
     private static class ConfigHolder {
@@ -35,7 +35,7 @@ public class Config {
     }
 
     private void parseConfig(Properties p) {
-        rootPath = "/" + p.getProperty("root.path", StringUtils.EMPTY);
+        basePath = "/" + p.getProperty("base.path", StringUtils.EMPTY);
         needPrefixRootPath = Boolean.parseBoolean(p.getProperty(
                 "need.prefix.root.path", "false"));
     }
@@ -53,8 +53,8 @@ public class Config {
      * 
      * @return / 或者 /easypackage
      */
-    public String getRootPath() {
-        return rootPath;
+    public String getBasePath() {
+        return basePath;
     }
 
     public boolean isNeedPrefixRootPath() {

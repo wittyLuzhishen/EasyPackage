@@ -1,22 +1,27 @@
 package com.luzhishen.easypackage.facade.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.luzhishen.easypackage.facade.biz.AppBiz;
 import com.luzhishen.easypackage.facade.biz.UserBiz;
+import com.luzhishen.easypackage.facade.entity.App;
 
 @Service
 public class TaskService {
     @Autowired
     private UserBiz userBiz;
+    @Autowired
+    private AppBiz appBiz;
 
     public boolean login(String userName, String password) {
         return userBiz.login(userName, password);
     }
 
-    public void findAppList() {
-        // TODO - implement TaskService.findAppList
-        throw new UnsupportedOperationException();
+    public List<App> findAppList() {
+        return appBiz.findAppList();
     }
 
     public void findPlatformList() {
