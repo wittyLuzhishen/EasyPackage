@@ -6,8 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.luzhishen.easypackage.facade.biz.AppBiz;
+import com.luzhishen.easypackage.facade.biz.ChannelBiz;
+import com.luzhishen.easypackage.facade.biz.GitBiz;
+import com.luzhishen.easypackage.facade.biz.MailReceiverBiz;
+import com.luzhishen.easypackage.facade.biz.PlatformBiz;
 import com.luzhishen.easypackage.facade.biz.UserBiz;
 import com.luzhishen.easypackage.facade.entity.App;
+import com.luzhishen.easypackage.facade.entity.Channel;
+import com.luzhishen.easypackage.facade.entity.MailReceiver;
+import com.luzhishen.easypackage.facade.entity.Platform;
+import com.luzhishen.easypackage.facade.model.Commit;
 
 @Service
 public class TaskService {
@@ -15,6 +23,14 @@ public class TaskService {
     private UserBiz userBiz;
     @Autowired
     private AppBiz appBiz;
+    @Autowired
+    private PlatformBiz platformBiz;
+    @Autowired
+    private GitBiz gitBiz;
+    @Autowired
+    private ChannelBiz channelBiz;
+    @Autowired
+    private MailReceiverBiz mailReceiverBiz;
 
     public boolean login(String userName, String password) {
         return userBiz.login(userName, password);
@@ -24,32 +40,28 @@ public class TaskService {
         return appBiz.findAppList();
     }
 
-    public void findPlatformList() {
-        // TODO - implement TaskService.findPlatformList
-        throw new UnsupportedOperationException();
+    public List<Platform> findPlatformList() {
+        return platformBiz.findPlatformList();
     }
 
-    public void getBranchList() {
-        // TODO - implement TaskService.getBranchList
-        throw new UnsupportedOperationException();
+    public List<String> getBranchList(int platformId, int appId) {
+        return gitBiz.getBranchList(platformId, appId);
     }
 
-    public void findChannelList() {
-        // TODO - implement TaskService.findChannelList
-        throw new UnsupportedOperationException();
+    public List<Channel> findChannelList(int appId) {
+        return channelBiz.findChannelList(appId);
     }
 
-    public void findMailReceiverList() {
-        // TODO - implement TaskService.findMailReceiverList
-        throw new UnsupportedOperationException();
+    public List<MailReceiver> findMailReceiverList() {
+        return mailReceiverBiz.findMailReceiverList();
     }
 
-    public void getCommitList() {
-        // TODO - implement TaskService.getCommitList
-        throw new UnsupportedOperationException();
+    public List<Commit> getCommitList(int platformId, int appId,
+            String branchName) {
+        return gitBiz.getCommitList(platformId, appId, branchName);
     }
 
-    public void createTaskGroup() {
+    public boolean createTaskGroup() {
         // TODO - implement TaskService.createTaskGroup
         throw new UnsupportedOperationException();
     }

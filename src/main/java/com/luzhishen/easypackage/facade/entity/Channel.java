@@ -2,16 +2,15 @@ package com.luzhishen.easypackage.facade.entity;
 
 import com.luzhishen.easypackage.facade.util.BaseJavaBean;
 
-
-public class App extends BaseJavaBean {
+public class Channel extends BaseJavaBean {
     private Integer id;
     private String name;
     private String desc;
 
-    public App() {
+    public Channel() {
     }
 
-    public App(Integer id, String name, String desc) {
+    public Channel(Integer id, String name, String desc) {
         super();
         this.id = id;
         this.name = name;

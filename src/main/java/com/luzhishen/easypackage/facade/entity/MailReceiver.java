@@ -2,20 +2,19 @@ package com.luzhishen.easypackage.facade.entity;
 
 import com.luzhishen.easypackage.facade.util.BaseJavaBean;
 
-
-public class App extends BaseJavaBean {
+public class MailReceiver extends BaseJavaBean {
     private Integer id;
     private String name;
-    private String desc;
+    private String email;
 
-    public App() {
+    public MailReceiver() {
     }
 
-    public App(Integer id, String name, String desc) {
+    public MailReceiver(Integer id, String name, String email) {
         super();
         this.id = id;
         this.name = name;
-        this.desc = desc;
+        this.email = email;
     }
 
     public Integer getId() {
@@ -34,12 +33,12 @@ public class App extends BaseJavaBean {
         this.name = name;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

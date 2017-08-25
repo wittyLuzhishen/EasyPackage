@@ -2,20 +2,22 @@ package com.luzhishen.easypackage.facade.entity;
 
 import com.luzhishen.easypackage.facade.util.BaseJavaBean;
 
-
-public class App extends BaseJavaBean {
+public class Platform extends BaseJavaBean {
     private Integer id;
     private String name;
     private String desc;
+    private Integer packageToolType;
 
-    public App() {
+    public Platform() {
     }
 
-    public App(Integer id, String name, String desc) {
+    public Platform(Integer id, String name, String desc,
+            Integer packageToolType) {
         super();
         this.id = id;
         this.name = name;
         this.desc = desc;
+        this.packageToolType = packageToolType;
     }
 
     public Integer getId() {
@@ -40,6 +42,14 @@ public class App extends BaseJavaBean {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public Integer getPackageToolType() {
+        return packageToolType;
+    }
+
+    public void setPackageToolType(Integer packageToolType) {
+        this.packageToolType = packageToolType;
     }
 
 }

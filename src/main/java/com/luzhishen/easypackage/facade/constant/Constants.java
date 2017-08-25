@@ -13,4 +13,8 @@ public interface Constants {
         String LOGIN = "/login";
         String PACKAGE = "/package";
     }
+
+    interface PackageToolType {
+        int GRADLE = 0;
+    }
 }

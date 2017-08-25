@@ -25,21 +25,25 @@
 		<div class="row">
 			<!-- 登录部分 -->
 			<div class="col-md-4">
-				<span class="label label-primary">请登录</span>
-				<form role="form" class="form-horizontal" action="${actionPath}" method="post">
+				<h1>
+					<span class="label label-warning">请登录</span>
+				</h1>
+				<form role="form" class="form-horizontal" action="${actionPath}"
+					method="post">
 					<div class="form-group">
-						<label for="userName" class="col-md-12">用户名</label> <input
-							type="text" class="form-control" id="userName" name="userName"
-							placeholder="请输入用户名">
+						<label for="userName" class="col-md-12 glyphicon glyphicon-user">用户名</label>
+						<input type="text" class="form-control" id="userName"
+							name="userName" placeholder="请输入用户名">
 					</div>
 					<div class="form-group">
-						<label for="password" class="col-md-12">密码</label> <input
+						<label for="password"
+							class="col-md-12 glyphicon glyphicon-asterisk">密码</label> <input
 							type="password" class="form-control" id="password"
 							name="password" placeholder="请输入密码">
 					</div>
 					<div class="form-group">
 						<div class="col-md-offset-2">
-							<button type="submit" class="btn btn-default">登录</button>
+							<button type="submit" class="btn btn-primary">登录</button>
 						</div>
 					</div>
 				</form>

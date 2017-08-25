@@ -7,7 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>易打包-门户</name>
 	<description>提供和用户直接交互的界面</description>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/wittyLuzhishen/EasyPackage</url>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -78,7 +78,7 @@
 	</dependencies>
 
 	<properties>
-		<appPackageName>com.luzhishen.easypackage.facade</appPackageName>
+		<appPackageName>com.luzhishen.easypackage</appPackageName>
 		<rootPath>easypackagefacade</rootPath>
 		<log4j_level_biz>debug</log4j_level_biz>
 		<log4j_level_rose>debug</log4j_level_rose>
