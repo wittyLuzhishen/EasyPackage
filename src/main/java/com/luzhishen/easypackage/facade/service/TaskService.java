@@ -9,12 +9,10 @@ import com.luzhishen.easypackage.facade.biz.AppBiz;
 import com.luzhishen.easypackage.facade.biz.ChannelBiz;
 import com.luzhishen.easypackage.facade.biz.GitBiz;
 import com.luzhishen.easypackage.facade.biz.MailReceiverBiz;
-import com.luzhishen.easypackage.facade.biz.PlatformBiz;
 import com.luzhishen.easypackage.facade.biz.UserBiz;
 import com.luzhishen.easypackage.facade.entity.App;
 import com.luzhishen.easypackage.facade.entity.Channel;
 import com.luzhishen.easypackage.facade.entity.MailReceiver;
-import com.luzhishen.easypackage.facade.entity.Platform;
 import com.luzhishen.easypackage.facade.model.Commit;
 
 @Service
@@ -23,8 +21,6 @@ public class TaskService {
     private UserBiz userBiz;
     @Autowired
     private AppBiz appBiz;
-    @Autowired
-    private PlatformBiz platformBiz;
     @Autowired
     private GitBiz gitBiz;
     @Autowired
@@ -38,10 +34,6 @@ public class TaskService {
 
     public List<App> findAppList() {
         return appBiz.findAppList();
-    }
-
-    public List<Platform> findPlatformList() {
-        return platformBiz.findPlatformList();
     }
 
     public List<String> getBranchList(int platformId, int appId) {

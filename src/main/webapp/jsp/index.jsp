@@ -26,14 +26,6 @@
 <body>
 	<div class="container">
 		<h2>欢迎使用易打包</h2>
-		<%-- 平台选择 --%>
-		<label class="label label-default" for="platformSelect">平台选择</label>
-		<c:forEach items="${platformList}" var="platform" varStatus="status">
-			<label class="radio-inline"> <input type="radio"
-				name="platform" id="platform${platform.id}" value="${platform.id}"
-				<c:if test="${status.first}">checked</c:if>>${platform.desc}
-			</label>
-		</c:forEach>
 		<%-- 应用选择 --%>
 		<div class="dropdown">
 			<button type="button" class="btn btn-primary dropdown-toggle"

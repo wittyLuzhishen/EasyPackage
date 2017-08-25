@@ -75,6 +75,12 @@
 			<artifactId>quartz</artifactId>
 			<version>1.6.1</version>
 		</dependency>
+		<!-- JGit -->
+		<dependency>
+			<groupId>org.eclipse.jgit</groupId>
+			<artifactId>org.eclipse.jgit</artifactId>
+			  <version>4.1.0.201509280440-r</version>
+		</dependency>
 	</dependencies>
 
 	<properties>

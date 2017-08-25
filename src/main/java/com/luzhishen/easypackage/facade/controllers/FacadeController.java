@@ -29,7 +29,6 @@ public class FacadeController {
     @Get({ Constants.Path.ROOT, Constants.Path.INDEX })
     public String index(Invocation inv) {
         inv.addModel("appList", taskService.findAppList());
-        inv.addModel("platformList", taskService.findPlatformList());
         inv.addModel("rootPath", PathUtil.getPath(Constants.Path.ROOT));
         return "/jsp/index.jsp";
     }
