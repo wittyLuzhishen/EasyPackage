@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.luzhishen.easypackage.facade.constant.Constants;
+import com.luzhishen.easypackage.facade.util.Config;
 import com.luzhishen.easypackage.facade.util.PathUtil;
 import com.luzhishen.easypackage.facade.util.UserStateManager;
 /**
@@ -30,7 +31,7 @@ public class LoginInterceptor extends ControllerInterceptorAdapter {
     @Override
     public Object before(Invocation inv) throws Exception {
         logger.debug("LoginInterceptor before");
-
+        Config.setContextPath(inv.getRequest().getContextPath());
         if (UserStateManager.isLogined(inv.getRequest())) {
             return super.before(inv);
         } else {

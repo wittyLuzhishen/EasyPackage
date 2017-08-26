@@ -6,8 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.luzhishen.easypackage.facade.util.GitUtil;
-
 @Service
 public class TaskLooper {
     private static final Logger logger = LoggerFactory
@@ -39,11 +37,11 @@ public class TaskLooper {
 
     private void loop0() {
         // TODO Auto-generated method stub
-        String branch = System.currentTimeMillis() % 2 == 0 ? "master"
-                : "rongzhisheng";
-        logger.debug("branch:{}", branch);
-        GitUtil.checkoutAndPull("/home/rongzhisheng/workspace2/backyard",
-                branch);
+        // String branch = System.currentTimeMillis() % 2 == 0 ? "master"
+        // : "rongzhisheng";
+        // logger.debug("branch:{}", branch);
+        // GitUtil.checkoutAndPull("/home/rongzhisheng/workspace2/backyard",
+        // branch);
     }
 
 }

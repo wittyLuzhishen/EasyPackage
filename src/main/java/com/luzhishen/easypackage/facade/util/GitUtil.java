@@ -66,15 +66,16 @@ public class GitUtil {
         File file = fileExist.getRight().toFile();
         try (Git git = Git.open(file)) {
             CmdExecResult result = CommandExecUtil.execCmd(
-                    Constants.RUN_PATH.substring(0, Constants.RUN_PATH.length()
-                            - "bin".length())
-                            + "webapps"
-                            + Config.getInstance().getBasePath()
+                    Constants.TOMCAT_PATH
+                            + "/webapps"
+                            + Config.getContextPath()
                             + "/shell/gitCheckoutAndPull.sh "
                             + file.getAbsolutePath()
                             + " "
                             + branchOrCommit, true);
-            logger.debug("checkout result:{}", result);
+            if (result == null || !result.isSuccess()) {
+                logger.error("checkout failed, {}", result);
+            }
         } catch (IOException e) {
             logger.error("error occurred, {}", e);
         }

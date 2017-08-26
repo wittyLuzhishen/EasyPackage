@@ -8,14 +8,30 @@ import com.luzhishen.easypackage.facade.util.PathUtil;
 
 public class PathUtilTest {
     @Test
-    public void testGetPath() {
-        System.out.println(Config.getInstance().getBasePath());
-        System.out.println(Config.getInstance().isNeedPrefixRootPath());
+    public void testGetPath1() {
+        Config.setContextPath4Test("/appName");
+
         System.out.println(PathUtil.getPath(""));
-        Assert.assertFalse(PathUtil.getPath("").equals("/"));
+
+        Assert.assertTrue(PathUtil.getPath("").equals(
+                Config.getContextPath() + "/"));
+        Assert.assertTrue(PathUtil.getPath("/").equals(
+                Config.getContextPath() + "/"));
         Assert.assertTrue(PathUtil.getPath("index").equals(
-                Config.getInstance().getBasePath() + "/index"));
+                Config.getContextPath() + "/index"));
         Assert.assertTrue(PathUtil.getPath("/index").equals(
-                Config.getInstance().getBasePath() + "/index"));
+                Config.getContextPath() + "/index"));
+    }
+
+    @Test
+    public void testGetPath2() {
+        Config.setContextPath4Test("");
+
+        System.out.println(PathUtil.getPath(""));
+
+        Assert.assertTrue(PathUtil.getPath("").equals("/"));
+        Assert.assertTrue(PathUtil.getPath("/").equals("/"));
+        Assert.assertTrue(PathUtil.getPath("index").equals("/index"));
+        Assert.assertTrue(PathUtil.getPath("/index").equals("/index"));
     }
 }

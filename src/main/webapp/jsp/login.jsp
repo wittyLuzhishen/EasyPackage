@@ -11,7 +11,7 @@
 <title>登录</title>
 
 <!-- Bootstrap -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,7 +28,7 @@
 				<h1>
 					<span class="label label-warning">请登录</span>
 				</h1>
-				<form role="form" class="form-horizontal" action="${actionPath}"
+				<form role="form" class="form-horizontal" action="${pageContext.request.contextPath}/login"
 					method="post">
 					<div class="form-group">
 						<label for="userName" class="col-md-12 glyphicon glyphicon-user">用户名</label>
@@ -51,18 +51,16 @@
 			<!-- 介绍部分 -->
 			<div class="col-md-8">
 				<div class="jumbotron">
-					<h1>Theme example</h1>
-					<p>This is a template showcasing the optional theme stylesheet
-						included in Bootstrap. Use it as a starting point to create
-						something more unique by building on or modifying it.</p>
+					<h1>易打包</h1>
+					<p>支持多个Gradle并行打包apk</p>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="js/jquery-1.12.4.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 </body>
 </html>

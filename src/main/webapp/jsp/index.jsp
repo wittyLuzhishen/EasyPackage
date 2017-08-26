@@ -14,7 +14,7 @@
 <title>易打包</title>
 
 <!-- Bootstrap -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,15 +34,15 @@
 			</button>
 			<ul class="dropdown-menu" role="menu">
 				<c:forEach items="${appList}" var="app">
-					<li><a href="${rootPath}/package/${app.name}">${app.desc}</a></li>
+					<li><a href="${pageContext.request.contextPath}/package/${app.id}">${app.desc}</a></li>
 				</c:forEach>
 			</ul>
 		</div>
 	</div>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="js/jquery-1.12.4.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 </body>
 </html>

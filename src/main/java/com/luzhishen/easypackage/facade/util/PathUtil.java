@@ -13,15 +13,12 @@ public class PathUtil {
         if (StringUtils.isBlank(path)) {
             path = StringUtils.EMPTY;
         }
-        if (!path.startsWith(Constants.Path.ROOT)) {
+        if (!StringUtils.startsWith(path, Constants.Path.ROOT)) {
             path = Constants.Path.ROOT + path;
         }
-        if (Config.getInstance().isNeedPrefixRootPath()
-                && !StringUtils.startsWith(path, Config.getInstance().getBasePath())) {
-            if (StringUtils.equals(Constants.Path.ROOT, path)) {
-                return Config.getInstance().getBasePath();
-            }
-            path = Config.getInstance().getBasePath() + path;
+        if (StringUtils.isNotBlank(Config.getContextPath())
+                && !StringUtils.startsWith(path, Config.getContextPath())) {
+            path = Config.getContextPath() + path;
         }
         return path;
     }

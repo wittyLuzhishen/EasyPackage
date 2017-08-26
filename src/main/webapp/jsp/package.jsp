@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -14,7 +13,7 @@
 <title>打包</title>
 
 <!-- Bootstrap -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,11 +23,82 @@
     <![endif]-->
 </head>
 <body>
-	<h1>你好，世界！${appName}</h1>
+	<input type="hidden" id="contextPath" value="${pageContext.request.contextPath}" />
+	<input type="hidden" id="appId" value="${app.id}" />
+	<input type="hidden" id="appName" value="${app.name}" />
+	<input type="hidden" id="versionName" name="versionName" />
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>打包${app.desc}(${app.name})</h1>
+
+				<form action="${pageContext.request.contextPath}/package/${app.id}" method="post" role="form">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="branchName">分支</label> <select name="branchName" id="branchName"
+										onChange="onBranchChanged()" class="form-control">
+									</select>
+								</div>
+							</div>
+							<div clas="col=md-3">
+								<div class="form-group">
+									<label for="packageName">包名</label> <input type="text" class="form-control" disabled
+										id="packageName">
+								</div>
+							</div>
+							<div clas="col=md-3">
+								<div class="form-group">
+									<label for="packageNamePostfix">包名后缀</label> <input type="text" class="form-control"
+										id="packageNamePostfix" name="packageNamePostfix">
+								</div>
+							</div>
+							<div clas="col=md-3">
+								<input type="submit" id="commitBtn" value="开始打包" disable="true" />
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+
+								<div class="form-group">
+									<label>渠道</label>
+									<c:forEach items="${channelList}" var="channel">
+										<div class="checkbox">
+											<label><input type="checkbox" name="channelItem" value="${channel.id}" />${channel.name}(${channel.desc})</label>
+										</div>
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label>邮件接收者</label>
+									<c:forEach items="${mailReceiverList}" var="mailReceiver">
+										<div class="checkbox">
+											<label><input type="checkbox" value="${mailReceiver.email}" />${mailReceiver.name}</label>
+										</div>
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-2"></div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="js/jquery-1.12.4.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/log.js"></script>
+	<script src="${pageContext.request.contextPath}/js/common.js"></script>
+	<script src="${pageContext.request.contextPath}/js/biz/packagePage.js"></script>
 </body>
 </html>

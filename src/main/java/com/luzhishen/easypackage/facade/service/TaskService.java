@@ -2,6 +2,8 @@ package com.luzhishen.easypackage.facade.service;
 
 import java.util.List;
 
+import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +38,20 @@ public class TaskService {
         return appBiz.findAppList();
     }
 
-    public List<String> getBranchList(int platformId, int appId) {
-        return gitBiz.getBranchList(platformId, appId);
+    @Nullable
+    public App findApp(Integer appId) {
+        App app = null;
+        if (appId == null
+                || appId <= 0
+                || (app = appBiz.findApp(appId)) == null) {
+            return null;
+        }
+        return app;
+    }
+
+    @NonNull
+    public List<String> getBranchList(int appId) {
+        return gitBiz.getBranchList(appId);
     }
 
     public List<Channel> findChannelList(int appId) {

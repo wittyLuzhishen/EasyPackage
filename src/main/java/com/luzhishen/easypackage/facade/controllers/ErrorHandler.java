@@ -3,9 +3,11 @@ package com.luzhishen.easypackage.facade.controllers;
 import net.paoding.rose.web.ControllerErrorHandler;
 import net.paoding.rose.web.Invocation;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.luzhishen.easypackage.facade.constant.ErrorCode;
+import com.luzhishen.easypackage.facade.model.Result;
 
 public class ErrorHandler implements ControllerErrorHandler {
     private static final Logger logger = LoggerFactory
@@ -14,10 +16,8 @@ public class ErrorHandler implements ControllerErrorHandler {
     @Override
     public Object onError(Invocation inv, Throwable ex) throws Throwable {
         logger.error("unexpected error: {}", ex);
-        JSONObject json = new JSONObject();
-        json.put("code", -1);
-        json.put("msg", ex.getMessage());
-        return json.toString();
+        return Result.newInstance(ErrorCode.Unknown, ex.getMessage())
+                .toString();
     }
 
 }
