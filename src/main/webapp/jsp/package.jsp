@@ -26,7 +26,7 @@
 	<input type="hidden" id="contextPath" value="${pageContext.request.contextPath}" />
 	<input type="hidden" id="appId" value="${app.id}" />
 	<input type="hidden" id="appName" value="${app.name}" />
-	<input type="hidden" id="versionName" name="versionName" />
+
 
 	<div class="container">
 		<div class="row">
@@ -34,6 +34,7 @@
 				<h1>打包${app.desc}(${app.name})</h1>
 
 				<form action="${pageContext.request.contextPath}/package/${app.id}" method="post" role="form">
+					<input type="hidden" id="versionName" name="versionName" />
 					<div class="container">
 						<div class="row">
 							<div class="col-md-3">
@@ -66,7 +67,7 @@
 									<label>渠道</label>
 									<c:forEach items="${channelList}" var="channel">
 										<div class="checkbox">
-											<label><input type="checkbox" name="channelItem" value="${channel.id}" />${channel.name}(${channel.desc})</label>
+											<label><input type="checkbox" name="channelIdList" value="${channel.id}" />${channel.name}(${channel.desc})</label>
 										</div>
 									</c:forEach>
 								</div>
@@ -78,7 +79,8 @@
 									<label>邮件接收者</label>
 									<c:forEach items="${mailReceiverList}" var="mailReceiver">
 										<div class="checkbox">
-											<label><input type="checkbox" value="${mailReceiver.email}" />${mailReceiver.name}</label>
+											<label><input type="checkbox" name="mailReceiverIdList"
+												value="${mailReceiver.id}" />${mailReceiver.name}</label>
 										</div>
 									</c:forEach>
 								</div>

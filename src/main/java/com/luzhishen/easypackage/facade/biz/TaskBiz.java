@@ -1,14 +1,22 @@
 package com.luzhishen.easypackage.facade.biz;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.eclipse.jdt.annotation.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.luzhishen.easypackage.facade.model.CreateTaskRequest;
+import com.luzhishen.easypackage.facade.constant.ErrorCode;
+import com.luzhishen.easypackage.facade.entity.App;
+import com.luzhishen.easypackage.facade.entity.TaskGroup;
+import com.luzhishen.easypackage.facade.entity.User;
+import com.luzhishen.easypackage.facade.exception.PackageException;
+import com.luzhishen.easypackage.facade.model.TaskGroupStatus;
+import com.luzhishen.easypackage.facade.model.TaskParam;
 
 @Service
 public class TaskBiz {
@@ -17,44 +25,59 @@ public class TaskBiz {
     @Autowired
     private MachineBiz workerBiz;
 
-    public boolean createTaskGroup(CreateTaskRequest request) {
+    public void createTaskGroup(TaskParam request)
+            throws PackageException {
         logger.debug("{}", request);
-        return true;
+        int newTaskGroupId = createTaskGroup0(request);
+        if (newTaskGroupId <= 0) {
+            throw PackageException.of(ErrorCode.CreateTaskGroupFailed);
+        }
+        createTasks(newTaskGroupId, request);
+        if (!recordMailReceiver(newTaskGroupId, request.getMailReceiverIdList())) {
+            throw PackageException.of(ErrorCode.RecordMailReceiverFailed);
+        }
+        if (!modifyTaskGroupStatus(newTaskGroupId,
+                TaskGroup.Status.WAIT_FOR_DISTRIBUTION)) {
+            throw PackageException.of(ErrorCode.ModifyTaskGroupStatusFailed);
+        }
     }
 
     /**
      * 
      * @param request
-     * @return taskGroupId
+     * @return taskGroupId (>0)
      */
-    private int createTaskGroup0(CreateTaskRequest request) {
+    private int createTaskGroup0(TaskParam request) {
         return 1;
     }
 
-    private boolean recordMailReceiver(List<Integer> mailReceiverIdList) {
+    private boolean modifyTaskGroupStatus(int taskGroupId, int status) {
         return true;
     }
 
-    private boolean createTasks(int taskGroupId, CreateTaskRequest request) {
+    private void createTasks(int taskGroupId, TaskParam request)
+            throws PackageException {
         if (CollectionUtils.isEmpty(request.getChannelIdList())) {
-            return false;
+            throw PackageException.of(ErrorCode.CreateTaskFailed);
         }
-        boolean result = true;
         for (Integer channelId : request.getChannelIdList()) {
-            if (!createTask(taskGroupId, request.getPlatformId(),
-                    request.getAppId(), request.getBranchName(), channelId)) {
-                result = false;
+            if (!createTask(taskGroupId, request.getApp().getId(), channelId)) {
                 logger.error(
-                        "create task failed, platform:{}, appId:{}, branchName:{}, channelId:{}",
-                        request.getPlatformId(), request.getAppId(),
-                        request.getBranchName(), channelId);
+                        "create task failed, taskGroupId:{}, channelId:{}, request:{}",
+                        taskGroupId, channelId, request);
             }
         }
-        return result;
     }
 
-    private boolean createTask(int taskGroupId, int platformId, int appId,
-            String branchName, int channelId/* , String workerIp */) {
+    private boolean createTask(int taskGroupId, int appId, int channelId/* , String workerIp */) {
+        return true;
+    }
+
+    private boolean recordMailReceiver(int taskGroupId,
+            List<Integer> mailReceiverIdList) {
+        if (CollectionUtils.isEmpty(mailReceiverIdList)) {
+            return false;
+        }
         return true;
     }
 
@@ -65,12 +88,29 @@ public class TaskBiz {
     public int getPendingTaskGroup() {
         long lockId = System.currentTimeMillis();
         /*
-         int affectedRowCount = UPDATE TaskGroup SET facadeIp=getLocaleIp(), lockedTime=lockId WHERE facadeIp is null OR facadeIp='' LIMIT 1
+         int affectedRowCount = UPDATE TaskGroup SET facadeIp=getLocaleIp(), lockedTime=lockId WHERE status=0 AND (facadeIp is null OR facadeIp='') LIMIT 1
          if (affectedRowCount > 0) {
              return SELECT id FROM TaskGroup WHERE lockedTime=lockId AND facadeIp=getLocaleIp LIMIT 1
          }
         */
         throw new UnsupportedOperationException();
+    }
+
+    @NonNull
+    public List<TaskGroupStatus> getTaskGroupStatusList(@NonNull App app) {
+        ArrayList<TaskGroupStatus> list = new ArrayList<>();
+        TaskGroupStatus status = new TaskGroupStatus();
+        status.setApp(app);
+        status.setBranchName("testBranch");
+        status.setCreateTime(System.currentTimeMillis());
+        status.setStatus(TaskGroupStatus.Status.RUNNING);
+        status.setSuccessTaskCount(1);
+        status.setTaskCount(3);
+        status.setTaskGroupId(1);
+        status.setUser(new User());
+        status.setVersionName("1.2.3");
+        list.add(status);
+        return list;
     }
 
 }

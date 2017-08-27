@@ -20,6 +20,7 @@ public class Config {
     private static final String propertiesFileName = "/config.properties";
 
     private static volatile String sContextPath = "";
+    private static boolean debug;
 
     static {
         long startTime = System.currentTimeMillis();
@@ -38,8 +39,7 @@ public class Config {
     }
 
     private static void parseConfig(Properties p) {
-        p.getProperty("base.path", StringUtils.EMPTY);
-        Boolean.parseBoolean(p.getProperty("need.prefix.root.path", "false"));
+        debug = Boolean.parseBoolean(p.getProperty("is.debug", "false"));
     }
 
     private Config() {
@@ -71,6 +71,10 @@ public class Config {
      */
     public synchronized static String getContextPath() {
         return sContextPath;
+    }
+
+    public static boolean isDebug() {
+        return debug;
     }
 
     @Nullable

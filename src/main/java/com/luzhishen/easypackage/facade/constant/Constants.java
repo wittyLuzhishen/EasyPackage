@@ -18,6 +18,7 @@ public interface Constants {
         String INDEX = "/index";
         String LOGIN = "/login";
         String PACKAGE = "/package";
+        String TASK_LIST = "/taskList";
     }
 
     interface PackageToolType {

@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +13,22 @@ import com.luzhishen.easypackage.facade.biz.AppBiz;
 import com.luzhishen.easypackage.facade.biz.ChannelBiz;
 import com.luzhishen.easypackage.facade.biz.GitBiz;
 import com.luzhishen.easypackage.facade.biz.MailReceiverBiz;
+import com.luzhishen.easypackage.facade.biz.TaskBiz;
 import com.luzhishen.easypackage.facade.biz.UserBiz;
+import com.luzhishen.easypackage.facade.constant.ErrorCode;
 import com.luzhishen.easypackage.facade.entity.App;
 import com.luzhishen.easypackage.facade.entity.Channel;
 import com.luzhishen.easypackage.facade.entity.MailReceiver;
+import com.luzhishen.easypackage.facade.exception.PackageException;
 import com.luzhishen.easypackage.facade.model.Commit;
+import com.luzhishen.easypackage.facade.model.TaskGroupStatus;
+import com.luzhishen.easypackage.facade.model.TaskParam;
 
 @Service
 public class TaskService {
+    private static final Logger logger = LoggerFactory
+            .getLogger(TaskService.class);
+
     @Autowired
     private UserBiz userBiz;
     @Autowired
@@ -29,9 +39,11 @@ public class TaskService {
     private ChannelBiz channelBiz;
     @Autowired
     private MailReceiverBiz mailReceiverBiz;
+    @Autowired
+    private TaskBiz taskBiz;
 
-    public boolean login(String userName, String password) {
-        return userBiz.login(userName, password);
+    public Integer findUserId(String userName, String password) {
+        return userBiz.findUserId(userName, password);
     }
 
     public List<App> findAppList() {
@@ -67,9 +79,21 @@ public class TaskService {
         return gitBiz.getCommitList(platformId, appId, branchName);
     }
 
-    public boolean createTaskGroup() {
-        // TODO - implement TaskService.createTaskGroup
-        throw new UnsupportedOperationException();
+    public ErrorCode createTaskGroup(TaskParam taskParam) {
+        logger.debug("createTaskGroup, taskParam:{}", taskParam);
+        try {
+            taskBiz.createTaskGroup(taskParam);
+        } catch (PackageException e) {
+            return e.getErrorCode();
+        } catch (Exception e) {
+            return ErrorCode.Unknown;
+        }
+        return ErrorCode.Success;
+    }
+
+    @NonNull
+    public List<TaskGroupStatus> getTaskGroupStatusList(@NonNull App app) {
+        return taskBiz.getTaskGroupStatusList(app);
     }
 
 }

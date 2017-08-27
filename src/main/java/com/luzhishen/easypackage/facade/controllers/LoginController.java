@@ -37,8 +37,9 @@ public class LoginController {
     public String loginPost(Invocation inv, @Param(USER_NAME) String userName,
             @Param(PASSWORD) String password) {
         Config.setContextPath(inv.getRequest().getContextPath());
-        if (taskService.login(userName, password)) {
-            UserStateManager.setLogined(inv.getRequest(), userName);
+        Integer userId;
+        if ((userId = taskService.findUserId(userName, password)) != null) {
+            UserStateManager.setLogined(inv.getRequest(), userId);
             return PathUtil.getRedirectPath(Constants.Path.INDEX);
         }
         UserStateManager.setLogout(inv.getRequest());

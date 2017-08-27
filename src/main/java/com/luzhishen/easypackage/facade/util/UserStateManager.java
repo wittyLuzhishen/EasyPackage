@@ -1,9 +1,8 @@
 package com.luzhishen.easypackage.facade.util;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
+import org.eclipse.jdt.annotation.Nullable;
 
 public class UserStateManager {
     private UserStateManager() {
@@ -13,14 +12,18 @@ public class UserStateManager {
     public static final String LOGIN_COOKIE_USERNAME = "cookie_uname";
     public static final String LOGIN_COOKIE_PASSWORD = "cookie_pwd";
 
-    public static boolean isLogined(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        return StringUtils.isNotBlank((String) session
-                .getAttribute(LOGIN_SESSION_USER));
+    @Nullable
+    public static Integer getLoginUserId(HttpServletRequest request) {
+        return (Integer) request.getSession().getAttribute(LOGIN_SESSION_USER);
     }
 
-    public static void setLogined(HttpServletRequest request, String userName) {
-        request.getSession().setAttribute(LOGIN_SESSION_USER, userName);
+    public static boolean isLogined(HttpServletRequest request) {
+        Integer userId = getLoginUserId(request);
+        return userId != null && userId > 0;
+    }
+
+    public static void setLogined(HttpServletRequest request, Integer userId) {
+        request.getSession().setAttribute(LOGIN_SESSION_USER, userId);
     }
 
     public static void setLogout(HttpServletRequest request) {
