@@ -26,9 +26,10 @@ CREATE TABLE TaskGroup (
   lockedTime     bigint(20) comment '该TaskGroup被某Facade请求锁定的时间，用于存在性检测成功后检索出特定条目', 
   status         int(11) comment '0 创建中，1 待分配，2 已分配，3 开始执行') comment='记录某次打包行为包含的任务信息';
 CREATE TABLE MailReceiver (
-  id    int(10), 
-  name  int(10), 
-  email int(10));
+  id          int(10), 
+  name        int(10), 
+  email       int(10), 
+  defaultSend int(11) comment '0 不默认发送，1 默认发送');
 CREATE TABLE TaskGroup_MailReceiver (
   id             int(10), 
   taskGroupId    int(10), 

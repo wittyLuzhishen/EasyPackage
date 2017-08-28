@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -14,8 +13,9 @@
 <title>Bootstrap 101 Template</title>
 
 <!-- Bootstrap -->
-<link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+<link rel="icon" href="${pageContext.request.contextPath}/icon/logo.png" type="image/png">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/icon/logo.png" type="image/png">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,13 +25,11 @@
     <![endif]-->
 </head>
 <body>
-	<input type="hidden" id="contextPath"
-		value="${pageContext.request.contextPath}" />
+	<input type="hidden" id="contextPath" value="${pageContext.request.contextPath}" />
 	<h1>你好，世界！</h1>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script
-		src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-1.12.4.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/log.js"></script>

@@ -55,7 +55,8 @@ public class FacadeController {
     @Post(Constants.Path.PACKAGE + "/{appId:\\d+}")
     public String submitPakcageTask(Invocation inv,
             @Param("appId") Integer appId, TaskParam taskParam) {
-        taskParam.setUserId(UserStateManager.getLoginUserId(inv.getRequest()));
+        taskParam.setUserId(UserStateManager.getLoginUser(inv.getRequest())
+                .getId());
         Pair<Boolean, String> checkResult = taskParam.isValid(false);
         if (!checkResult.getLeft()) {
             logger.warn(

@@ -19,6 +19,7 @@ import com.luzhishen.easypackage.facade.constant.ErrorCode;
 import com.luzhishen.easypackage.facade.entity.App;
 import com.luzhishen.easypackage.facade.entity.Channel;
 import com.luzhishen.easypackage.facade.entity.MailReceiver;
+import com.luzhishen.easypackage.facade.entity.User;
 import com.luzhishen.easypackage.facade.exception.PackageException;
 import com.luzhishen.easypackage.facade.model.Commit;
 import com.luzhishen.easypackage.facade.model.TaskGroupStatus;
@@ -42,8 +43,9 @@ public class TaskService {
     @Autowired
     private TaskBiz taskBiz;
 
-    public Integer findUserId(String userName, String password) {
-        return userBiz.findUserId(userName, password);
+    @Nullable
+    public User findUser(String userName, String password) {
+        return userBiz.findUser(userName, password);
     }
 
     public List<App> findAppList() {

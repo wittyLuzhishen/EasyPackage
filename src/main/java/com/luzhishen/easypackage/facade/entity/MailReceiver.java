@@ -6,15 +6,18 @@ public class MailReceiver extends BaseJavaBean {
     private Integer id;
     private String name;
     private String email;
+    private Integer defaultSent;
 
     public MailReceiver() {
     }
 
-    public MailReceiver(Integer id, String name, String email) {
+    public MailReceiver(Integer id, String name, String email,
+            Integer defaultSent) {
         super();
         this.id = id;
         this.name = name;
         this.email = email;
+        this.defaultSent = defaultSent;
     }
 
     public Integer getId() {
@@ -39,6 +42,14 @@ public class MailReceiver extends BaseJavaBean {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isDefaultSent() {
+        return defaultSent != null && defaultSent != 0;
+    }
+
+    public void setDefaultSent(Integer defaultSent) {
+        this.defaultSent = defaultSent;
     }
 
 }

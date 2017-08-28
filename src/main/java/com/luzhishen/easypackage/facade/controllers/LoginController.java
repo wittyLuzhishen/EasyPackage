@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.luzhishen.easypackage.facade.constant.Constants;
 import com.luzhishen.easypackage.facade.constant.ErrorCode;
+import com.luzhishen.easypackage.facade.entity.User;
 import com.luzhishen.easypackage.facade.model.Result;
 import com.luzhishen.easypackage.facade.service.TaskService;
 import com.luzhishen.easypackage.facade.util.Config;
@@ -37,9 +38,9 @@ public class LoginController {
     public String loginPost(Invocation inv, @Param(USER_NAME) String userName,
             @Param(PASSWORD) String password) {
         Config.setContextPath(inv.getRequest().getContextPath());
-        Integer userId;
-        if ((userId = taskService.findUserId(userName, password)) != null) {
-            UserStateManager.setLogined(inv.getRequest(), userId);
+        User user;
+        if ((user = taskService.findUser(userName, password)) != null) {
+            UserStateManager.setLogined(inv.getRequest(), user);
             return PathUtil.getRedirectPath(Constants.Path.INDEX);
         }
         UserStateManager.setLogout(inv.getRequest());

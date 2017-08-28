@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.eclipse.jdt.annotation.Nullable;
 
+import com.luzhishen.easypackage.facade.entity.User;
+
 public class UserStateManager {
     private UserStateManager() {
     }
@@ -13,17 +15,17 @@ public class UserStateManager {
     public static final String LOGIN_COOKIE_PASSWORD = "cookie_pwd";
 
     @Nullable
-    public static Integer getLoginUserId(HttpServletRequest request) {
-        return (Integer) request.getSession().getAttribute(LOGIN_SESSION_USER);
+    public static User getLoginUser(HttpServletRequest request) {
+        return (User) request.getSession().getAttribute(LOGIN_SESSION_USER);
     }
 
     public static boolean isLogined(HttpServletRequest request) {
-        Integer userId = getLoginUserId(request);
-        return userId != null && userId > 0;
+        User user = getLoginUser(request);
+        return user != null && user.getId() > 0;
     }
 
-    public static void setLogined(HttpServletRequest request, Integer userId) {
-        request.getSession().setAttribute(LOGIN_SESSION_USER, userId);
+    public static void setLogined(HttpServletRequest request, User user) {
+        request.getSession().setAttribute(LOGIN_SESSION_USER, user);
     }
 
     public static void setLogout(HttpServletRequest request) {

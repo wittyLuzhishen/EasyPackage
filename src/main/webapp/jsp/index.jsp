@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -15,6 +14,8 @@
 
 <!-- Bootstrap -->
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+<link rel="icon" href="${pageContext.request.contextPath}/icon/logo.png" type="image/png">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/icon/logo.png" type="image/png">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,9 +29,8 @@
 		<h2>欢迎使用易打包</h2>
 		<%-- 应用选择 --%>
 		<div class="dropdown">
-			<button type="button" class="btn btn-primary dropdown-toggle"
-				data-toggle="dropdown">
-				应用<span class="caret"></span>
+			<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+				请选择应用<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
 				<c:forEach items="${appList}" var="app">
